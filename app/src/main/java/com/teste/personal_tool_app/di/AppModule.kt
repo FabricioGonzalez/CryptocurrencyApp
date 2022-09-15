@@ -1,6 +1,8 @@
 package com.teste.personal_tool_app.di
 
 import android.content.Context
+import com.teste.personal_tool_app.ConnectivityObserver
+import com.teste.personal_tool_app.NetworkConnectivityObserver
 import com.teste.personal_tool_app.common.Constants
 import com.teste.personal_tool_app.data.remote.CoinPaprikaApi
 import com.teste.personal_tool_app.data.repositories.CoinRepositoryImpl
@@ -38,5 +40,10 @@ object AppModule {
     @Singleton
     fun provideNotificationService(@ApplicationContext context: Context): NotificationService {
         return NotificationService(context)
+    }
+
+    @Provides
+    fun provideNetworkObserver(@ApplicationContext context: Context): ConnectivityObserver {
+        return NetworkConnectivityObserver(context)
     }
 }
