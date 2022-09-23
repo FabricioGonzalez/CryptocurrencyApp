@@ -5,10 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.teste.personal_tool_app.presentation.Screen
-import com.teste.personal_tool_app.presentation.coin_detail.CoinDetailScreen
-import com.teste.personal_tool_app.presentation.coin_list.CoinListScreen
+import com.teste.personal_tool_app.presentation.coin.coin_detail.CoinDetailScreen
+import com.teste.personal_tool_app.presentation.coin.coin_list.CoinListScreen
 import com.teste.personal_tool_app.presentation.nofication.NotificationScreen
-import com.teste.personal_tool_app.presentation.nofication.services.NotificationService
 
 @Composable
 fun Navigation(navController:NavHostController) {

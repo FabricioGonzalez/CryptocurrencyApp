@@ -4,9 +4,9 @@ import android.content.Context
 import com.teste.personal_tool_app.ConnectivityObserver
 import com.teste.personal_tool_app.NetworkConnectivityObserver
 import com.teste.personal_tool_app.common.Constants
-import com.teste.personal_tool_app.data.remote.CoinPaprikaApi
-import com.teste.personal_tool_app.data.repositories.CoinRepositoryImpl
-import com.teste.personal_tool_app.domain.repositories.CoinRepository
+import com.teste.personal_tool_app.data.remote.coin.CoinPaprikaApi
+import com.teste.personal_tool_app.data.repositories.coin.CoinRepositoryImpl
+import com.teste.personal_tool_app.domain.coin.repositories.CoinRepository
 import com.teste.personal_tool_app.presentation.nofication.services.NotificationService
 import dagger.Module
 import dagger.Provides

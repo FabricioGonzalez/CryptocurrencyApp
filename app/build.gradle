@@ -5,11 +5,11 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.teste.personal_tool_app"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -84,9 +84,13 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
 
+    // Location Services
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 }
