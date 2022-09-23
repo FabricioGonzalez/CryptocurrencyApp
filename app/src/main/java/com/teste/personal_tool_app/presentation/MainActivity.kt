@@ -1,19 +1,22 @@
 package com.teste.personal_tool_app.presentation
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.teste.personal_tool_app.R
@@ -24,13 +27,28 @@ import com.teste.personal_tool_app.presentation.navigation.components.BottomNavi
 import com.teste.personal_tool_app.presentation.navigation.components.DrawerBody
 import com.teste.personal_tool_app.presentation.navigation.components.DrawerHeader
 import com.teste.personal_tool_app.presentation.theme.CriptocurrencyAppTheme
+import com.teste.personal_tool_app.presentation.weather.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val permissionLauncher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+
+        }
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+
         setContent {
             CriptocurrencyAppTheme {
                 val scaffoldState = rememberScaffoldState()
@@ -38,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
                 Scaffold(
-                    scaffoldState = scaffoldState,
+                   /* scaffoldState = scaffoldState,
                     topBar = {
                         AppBar(onNavigationIconClick = {
                             scope.launch {
@@ -46,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             }
                         })
                     },
-                    drawerGesturesEnabled = if (scaffoldState.drawerState.isOpen) true else false,
+                    drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
                     drawerContent = {
                         DrawerHeader()
                         DrawerBody(
@@ -71,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                 println("Clicked on ${it.title}")
                             }
                         )
-                    },
+                    },*/
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
@@ -84,6 +102,11 @@ class MainActivity : ComponentActivity() {
                                     name = "notifications",
                                     route = Screen.NotificationScreen.route,
                                     icon = Icons.Default.Notifications
+                                ),
+                                BottomNavItem(
+                                    name = "weather",
+                                    route = Screen.WeatherScreen.route,
+                                    icon = Icons.Default.Refresh
                                 )
                             ),
                             navController = navController,
@@ -93,7 +116,8 @@ class MainActivity : ComponentActivity() {
                         )
                     }) {
                     com.teste.personal_tool_app.presentation.navigation.components.Navigation(
-                        navController = navController
+                        navController = navController,
+                        this
                     )
                 }
             }

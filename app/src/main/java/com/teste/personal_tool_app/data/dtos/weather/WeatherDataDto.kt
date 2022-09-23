@@ -1,5 +1,7 @@
 package com.teste.personal_tool_app.data.dtos.weather
 
+import com.squareup.moshi.Json
+
 data class WeatherDataDto(
     val time:List<String>,
     @field:Json(name="temperature_2m")

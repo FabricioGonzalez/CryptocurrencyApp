@@ -6,6 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teste.personal_tool_app.common.Resource
+import com.teste.personal_tool_app.domain.location.LocationTracker
+import com.teste.personal_tool_app.domain.weather.repository.WeatherRepository
 import com.teste.personal_tool_app.presentation.weather.states.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
