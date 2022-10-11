@@ -1,11 +1,9 @@
 package com.teste.personal_tool_app.presentation.weather
 
-import android.Manifest
-import android.content.Context
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,8 +25,8 @@ import com.teste.personal_tool_app.presentation.weather.viewmodels.WeatherViewMo
 fun WeatherScreen(
     activity: MainActivity,
     viewModel: WeatherViewModel = hiltViewModel()
-){
-    LaunchedEffect(Unit){
+) {
+    LaunchedEffect(Unit) {
         viewModel.loadWeatherInfo()
     }
 
@@ -37,11 +35,19 @@ fun WeatherScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(DarkBlue)
+                .verticalScroll(rememberScrollState())
+                .padding(4.dp)
         ) {
-            WeatherCard(state = viewModel.state, backgroundColor = DeepBlue)
-            Spacer(modifier = Modifier.height(16.dp))
-            WeatherForecast(state = viewModel.state)
-            WeatherWeekForecast(state = viewModel.state)
+            if (viewModel.state.weatherInfo != null) {
+                WeatherCard(state = viewModel.state, backgroundColor = DeepBlue)
+                Spacer(modifier = Modifier.height(4.dp))
+                WeatherForecast(state = viewModel.state)
+                Spacer(modifier = Modifier.height(4.dp))
+                WeatherWeekForecast(
+                    state = viewModel.state,
+                    backgroundColor = DeepBlue
+                )
+            }
         }
         if (viewModel.state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))

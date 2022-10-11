@@ -31,7 +31,9 @@ fun WeatherCard(
         Card(
             backgroundColor = backgroundColor,
             shape = RoundedCornerShape(10.dp),
-            modifier = modifier.padding(16.dp)
+            modifier = modifier
+                .padding(16.dp)
+            /*.height(160.dp)*/
         ) {
             Column(
                 modifier = Modifier
@@ -50,25 +52,25 @@ fun WeatherCard(
                     modifier = Modifier.align(Alignment.End),
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Image(
                     painter = painterResource(id = data.weatherType.iconRes),
                     contentDescription = null,
                     modifier = Modifier.width(200.dp)
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "${data.temperatureCelsius}  ºC",
-                    fontSize = 50.sp,
+                    fontSize = 42.sp,
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = data.weatherType.weatherDesc,
                     fontSize = 20.sp,
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround

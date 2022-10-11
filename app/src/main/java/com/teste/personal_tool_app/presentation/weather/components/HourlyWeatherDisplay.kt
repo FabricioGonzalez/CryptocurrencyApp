@@ -1,9 +1,7 @@
 package com.teste.personal_tool_app.presentation.weather.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,7 +17,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun HourlyWeatherDisplay(
     weatherData: WeatherData,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.height(80.dp),
     textColor: Color = Color.White
 ) {
     val formattedTime = remember(weatherData) {
@@ -30,9 +28,9 @@ fun HourlyWeatherDisplay(
             )
     }
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = formattedTime, color = Color.LightGray)
         Image(

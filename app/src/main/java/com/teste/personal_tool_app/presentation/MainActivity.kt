@@ -6,30 +6,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.teste.personal_tool_app.R
-import com.teste.personal_tool_app.presentation.navigation.AppBar
 import com.teste.personal_tool_app.presentation.navigation.BottomNavItem
-import com.teste.personal_tool_app.presentation.navigation.MenuItem
 import com.teste.personal_tool_app.presentation.navigation.components.BottomNavigationBar
-import com.teste.personal_tool_app.presentation.navigation.components.DrawerBody
-import com.teste.personal_tool_app.presentation.navigation.components.DrawerHeader
+import com.teste.personal_tool_app.presentation.navigation.components.Navigation
 import com.teste.personal_tool_app.presentation.theme.CriptocurrencyAppTheme
-import com.teste.personal_tool_app.presentation.weather.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -115,7 +104,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }) {
-                    com.teste.personal_tool_app.presentation.navigation.components.Navigation(
+                    Navigation(
                         navController = navController,
                         this
                     )
