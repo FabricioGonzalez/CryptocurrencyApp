@@ -1,6 +1,7 @@
 package com.teste.personal_tool_app.presentation
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,8 +9,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookOnline
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -23,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -88,10 +90,15 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Default.Info
                                 ),
                                 BottomNavItem(
-                                    name = "notifications",
-                                    route = Screen.NotificationScreen.route,
-                                    icon = Icons.Default.Notifications
+                                    name = "mangas",
+                                    route = Screen.MangaListScreen.route,
+                                    icon = Icons.Default.BookOnline
                                 ),
+                                /*  BottomNavItem(
+                                      name = "notifications",
+                                      route = Screen.NotificationScreen.route,
+                                      icon = Icons.Default.Notifications
+                                  ),*/
                                 BottomNavItem(
                                     name = "weather",
                                     route = Screen.WeatherScreen.route,

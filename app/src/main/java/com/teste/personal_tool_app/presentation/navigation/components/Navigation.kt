@@ -8,15 +8,15 @@ import com.teste.personal_tool_app.presentation.MainActivity
 import com.teste.personal_tool_app.presentation.Screen
 import com.teste.personal_tool_app.presentation.coin.coin_detail.CoinDetailScreen
 import com.teste.personal_tool_app.presentation.coin.coin_list.CoinListScreen
-import com.teste.personal_tool_app.presentation.nofication.NotificationScreen
-import com.teste.personal_tool_app.presentation.weather.WeatherForecast
+import com.teste.personal_tool_app.presentation.manga.MangaScreen
+import com.teste.personal_tool_app.presentation.manga.manga_list.MangaListScreen
+import com.teste.personal_tool_app.presentation.manga.manga_reader.MangaReaderScreen
 import com.teste.personal_tool_app.presentation.weather.WeatherScreen
-import com.teste.personal_tool_app.presentation.weather.viewmodels.WeatherViewModel
 
 @Composable
 fun Navigation(
     navController: NavHostController,
-    activity:MainActivity
+    activity: MainActivity
 ) {
     NavHost(
         navController = navController,
@@ -33,10 +33,25 @@ fun Navigation(
         ) {
             CoinDetailScreen()
         }
-        composable(
+/*        composable(
             route = Screen.NotificationScreen.route
         ) {
             NotificationScreen()
+        }*/
+        composable(
+            route = Screen.MangaScreen.route + "/{mangaUrl}"
+        ) {
+            MangaScreen()
+        }
+        composable(
+            route = Screen.MangaReaderScreen.route + "/{mangaChapter}"
+        ) {
+            MangaReaderScreen()
+        }
+        composable(
+            route = Screen.MangaListScreen.route
+        ) {
+            MangaListScreen()
         }
         composable(
             route = Screen.WeatherScreen.route
