@@ -7,13 +7,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookOnline
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.teste.personal_tool_app.presentation.navigation.BottomNavItem
 import com.teste.personal_tool_app.presentation.navigation.components.BottomNavigationBar
@@ -42,56 +42,63 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CriptocurrencyAppTheme {
+/*
                 val scaffoldState = rememberScaffoldState()
                 val scope = rememberCoroutineScope()
+*/
 
                 val navController = rememberNavController()
                 Scaffold(
-                   /* scaffoldState = scaffoldState,
-                    topBar = {
-                        AppBar(onNavigationIconClick = {
-                            scope.launch {
-                                scaffoldState.drawerState.open()
-                            }
-                        })
-                    },
-                    drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
-                    drawerContent = {
-                        DrawerHeader()
-                        DrawerBody(
-                            items = listOf(
-                                MenuItem(
-                                    id = "home",
-                                    title = "Home",
-                                    contentDescription = "Go to Home Screen",
-                                    icon = Icons.Default.Home
-                                ), MenuItem(
-                                    id = "settings",
-                                    title = "Settings",
-                                    contentDescription = "Go to Settings Screen",
-                                    icon = Icons.Default.Settings
-                                ), MenuItem(
-                                    id = "help",
-                                    title = "Help",
-                                    contentDescription = "Get Help",
-                                    icon = Icons.Default.Info
-                                )
-                            ), onItemClick = {
-                                println("Clicked on ${it.title}")
-                            }
-                        )
-                    },*/
+                    /* scaffoldState = scaffoldState,
+                     topBar = {
+                         AppBar(onNavigationIconClick = {
+                             scope.launch {
+                                 scaffoldState.drawerState.open()
+                             }
+                         })
+                     },
+                     drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+                     drawerContent = {
+                         DrawerHeader()
+                         DrawerBody(
+                             items = listOf(
+                                 MenuItem(
+                                     id = "home",
+                                     title = "Home",
+                                     contentDescription = "Go to Home Screen",
+                                     icon = Icons.Default.Home
+                                 ), MenuItem(
+                                     id = "settings",
+                                     title = "Settings",
+                                     contentDescription = "Go to Settings Screen",
+                                     icon = Icons.Default.Settings
+                                 ), MenuItem(
+                                     id = "help",
+                                     title = "Help",
+                                     contentDescription = "Get Help",
+                                     icon = Icons.Default.Info
+                                 )
+                             ), onItemClick = {
+                                 println("Clicked on ${it.title}")
+                             }
+                         )
+                     },*/
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
-                                BottomNavItem(
-                                    name = "cripto",
-                                    route = Screen.CoinListScreen.route,
-                                    icon = Icons.Default.Info
-                                ),
+                                /*  BottomNavItem(
+                                      name = "cripto",
+                                      route = Screen.CoinListScreen.route,
+                                      icon = Icons.Default.Info
+                                  ),*/
                                 BottomNavItem(
                                     name = "mangas",
                                     route = Screen.MangaListScreen.route,
+                                    icon = Icons.Default.BookOnline
+                                ),
+                                BottomNavItem(
+                                    name = "animes",
+                                    route = Screen.AnimeListScreen.route,
                                     icon = Icons.Default.BookOnline
                                 ),
                                 /*  BottomNavItem(
@@ -111,9 +118,11 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }) {
+                    val padding = it.calculateBottomPadding()
                     Navigation(
                         navController = navController,
-                        this
+                        this,
+                        Modifier.padding(top = 0.dp, start = 0.dp, end = 0.dp, bottom = padding)
                     )
                 }
             }

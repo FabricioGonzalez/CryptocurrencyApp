@@ -1,7 +1,7 @@
-package com.teste.personal_tool_app.data.mappers.weather
+package com.teste.personal_tool_app.data.remote.weather.mappers
 
-import com.teste.personal_tool_app.data.dtos.weather.WeatherDataDto
-import com.teste.personal_tool_app.data.dtos.weather.WeatherDto
+import com.teste.personal_tool_app.data.remote.weather.dto.WeatherDataDto
+import com.teste.personal_tool_app.data.remote.weather.dto.WeatherDto
 import com.teste.personal_tool_app.domain.weather.domain.weather.WeatherData
 import com.teste.personal_tool_app.domain.weather.domain.weather.WeatherInfo
 import com.teste.personal_tool_app.domain.weather.domain.weather.WeatherType
@@ -20,18 +20,18 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         val windSpeed = windSpeeds[index]
         val pressure = pressures[index]
         val humidity = humidities[index]
+
         IndexedWeatherData(
             index = index,
             data = WeatherData(
                 time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
-                humidity = humidity,
-                weatherType = WeatherType.fromWMO(weatherCode),
-                pressure = pressure,
-                windSpeed = windSpeed,
-                temperatureCelsius = temperature
+                humidity = humidity ?: 0.0,
+                weatherType = WeatherType.fromWMO(weatherCode ?: 0),
+                pressure = pressure ?: 0.0,
+                windSpeed = windSpeed ?: 0.0,
+                temperatureCelsius = temperature ?: "0"
             )
         )
-
     }.groupBy {
         it.index / 24
     }.mapValues { it ->

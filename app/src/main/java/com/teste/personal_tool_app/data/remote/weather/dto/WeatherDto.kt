@@ -1,8 +1,8 @@
-package com.teste.personal_tool_app.data.dtos.weather
+package com.teste.personal_tool_app.data.remote.weather.dto
 
 import com.squareup.moshi.Json
 
 data class WeatherDto(
-    @field:Json(name="hourly")
+    @field:Json(name = "hourly")
     val weatherData: WeatherDataDto
 )

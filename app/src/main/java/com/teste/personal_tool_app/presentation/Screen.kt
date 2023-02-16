@@ -1,10 +1,15 @@
 package com.teste.personal_tool_app.presentation
 
-sealed class Screen(val route:String) {
+sealed class Screen(val route: String) {
     object CoinListScreen : Screen("coin_list_screen")
     object CoinDetailScreen : Screen("coin_detail_screen")
     object MangaListScreen : Screen("manga_list_screen")
     object MangaScreen : Screen("manga_screen")
+    object AnimePlayerScreen : Screen("anime_player")
+
+    object AnimeDetailsScreen : Screen("anime_details")
+    
+    object AnimeListScreen : Screen("anime_list")
     object MangaReaderScreen : Screen("manga_reader_screen")
 
     /*object NotificationScreen : Screen("notification_screen")*/

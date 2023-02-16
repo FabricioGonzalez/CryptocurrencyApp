@@ -37,8 +37,8 @@ fun BottomNavigationBar(
                 onClick = { onItemClick(item) },
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
-                        if (item.badgeCount > 0) {
-                            BadgeBox(badgeContent = {
+                        /*if (item.badgeCount > 0) {
+                            Badge(conte = {
                                 Text(text = item.badgeCount.toString())
                             }) {
                                 Icon(
@@ -46,12 +46,12 @@ fun BottomNavigationBar(
                                     contentDescription = null
                                 )
                             }
-                        } else {
+                        } else {*/
                             Icon(
                                 imageVector = item.icon,
                                 contentDescription = null
                             )
-                        }
+//                        }
                         if (selected) {
                             Text(
                                 text = item.name,

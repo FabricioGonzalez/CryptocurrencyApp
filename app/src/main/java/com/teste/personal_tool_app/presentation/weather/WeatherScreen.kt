@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+
 import com.teste.personal_tool_app.presentation.MainActivity
 import com.teste.personal_tool_app.presentation.theme.DarkBlue
 import com.teste.personal_tool_app.presentation.theme.DeepBlue

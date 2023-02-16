@@ -38,15 +38,15 @@ fun WeatherWeekForecast(
                     )
                 }
                 val weatherData = WeatherDayData(
-                    maximumHumidity = last!!.humidity,
-                    MaximumPressure = last!!.pressure,
-                    maximumTemperatureCelsius = last!!.temperatureCelsius,
-                    maximumWindSpeed = last!!.windSpeed,
-                    minimumHumidity = first!!.humidity,
-                    minimumPressure = first!!.pressure,
-                    minimumTemperatureCelsius = first!!.temperatureCelsius,
-                    minimumWindSpeed = first!!.windSpeed,
-                    weatherType = first!!.weatherType,
+                    maximumHumidity = last.humidity,
+                    MaximumPressure = last.pressure,
+                    maximumTemperatureCelsius = last.temperatureCelsius,
+                    maximumWindSpeed = last.windSpeed,
+                    minimumHumidity = first.humidity,
+                    minimumPressure = first.pressure,
+                    minimumTemperatureCelsius = first.temperatureCelsius,
+                    minimumWindSpeed = first.windSpeed,
+                    weatherType = first.weatherType,
                     day = formattedTime
                 )
                 list.add(weatherData)

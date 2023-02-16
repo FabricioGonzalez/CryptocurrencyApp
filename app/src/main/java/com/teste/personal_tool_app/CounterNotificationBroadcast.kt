@@ -10,6 +10,6 @@ class CounterNotificationBroadcast : BroadcastReceiver() {
 
         val service = NotificationService(context)
 
-        service.ShowNotification(++Counter.value)
+        service.ShowNotification(0)
     }
 }

@@ -8,17 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.teste.personal_tool_app.Counter
-import com.teste.personal_tool_app.presentation.nofication.services.NotificationService
 
 @Composable
 fun NotificationScreen(
     viewModel: NotificationViewModel = hiltViewModel(),
 
-) {
+    ) {
     Box(modifier = Modifier.fillMaxSize()) {
         OutlinedButton(onClick = {
-            viewModel.ShowNotification(Counter.value)
+            viewModel.ShowNotification(0)
         }, modifier = Modifier.align(Alignment.Center)) {
             Text(text = "Notifications")
         }

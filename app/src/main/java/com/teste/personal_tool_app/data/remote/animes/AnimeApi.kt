@@ -1,10 +1,11 @@
-package com.teste.personal_tool_app.data.remote.weather
+package com.teste.personal_tool_app.data.remote.animes
 
 import com.teste.personal_tool_app.data.remote.weather.dto.WeatherDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WeatherApi {
+interface AnimeApi {
+
     @GET("v1/forecast?hourly=temperature_2m,weathercode,relativehumidity_2m,windspeed_10m,pressure_msl")
     suspend fun getWeatherData(
         @Query("latitude") lat: Double,
