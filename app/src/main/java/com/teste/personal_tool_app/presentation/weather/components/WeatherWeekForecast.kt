@@ -1,14 +1,14 @@
 package com.teste.personal_tool_app.presentation.weather.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,7 +19,10 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun WeatherWeekForecast(
-    state: WeatherState, backgroundColor: Color, modifier: Modifier = Modifier
+    state: WeatherState,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary
 ) {
     state.weatherInfo?.weatherDataPerDay.let { items ->
         val list: MutableList<WeatherDayData> = mutableListOf()
@@ -52,24 +55,39 @@ fun WeatherWeekForecast(
                 list.add(weatherData)
             }
         }
-        Card(
-            backgroundColor = backgroundColor,
-            shape = RoundedCornerShape(10.dp),
+
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = modifier
+            Card(
+                modifier = modifier,
+                backgroundColor = backgroundColor,
+                shape = RoundedCornerShape(10.dp),
             ) {
-                Text(
-                    text = "Weekly Forecast", fontSize = 20.sp, color = Color.White
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                list.map { weatherData ->
-                    DaylyWeatherDisplay(
-                        weatherData = weatherData,
-                        modifier = modifier
-                            .padding(16.dp),
-                        textColor = Color.White
+                Column(
+                    modifier = modifier
+                ) {
+                    Text(
+                        text = "Weekly Forecast",
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    list.map { weatherData ->
+                        DaylyWeatherDisplay(
+                            weatherData = weatherData,
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                                .background(
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                    shape = MaterialTheme.shapes.medium
+                                ),
+                            textColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                 }
             }
         }

@@ -6,19 +6,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-
 import com.teste.personal_tool_app.presentation.MainActivity
-import com.teste.personal_tool_app.presentation.theme.DarkBlue
-import com.teste.personal_tool_app.presentation.theme.DeepBlue
 import com.teste.personal_tool_app.presentation.weather.components.WeatherCard
+import com.teste.personal_tool_app.presentation.weather.components.WeatherForecast
 import com.teste.personal_tool_app.presentation.weather.components.WeatherWeekForecast
 import com.teste.personal_tool_app.presentation.weather.viewmodels.WeatherViewModel
 
@@ -35,27 +33,37 @@ fun WeatherScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DarkBlue)
+                .background(MaterialTheme.colorScheme.surface)
                 .verticalScroll(rememberScrollState())
                 .padding(4.dp)
         ) {
             if (viewModel.state.weatherInfo != null) {
-                WeatherCard(state = viewModel.state, backgroundColor = DeepBlue)
+                WeatherCard(
+                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    state = viewModel.state,
+                    backgroundColor = MaterialTheme.colorScheme.primaryContainer
+                )
                 Spacer(modifier = Modifier.height(4.dp))
-                WeatherForecast(state = viewModel.state)
+                WeatherForecast(
+                    state = viewModel.state
+                )
                 Spacer(modifier = Modifier.height(4.dp))
                 WeatherWeekForecast(
+                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     state = viewModel.state,
-                    backgroundColor = DeepBlue
+                    backgroundColor = MaterialTheme.colorScheme.surface
                 )
             }
         }
         if (viewModel.state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                color = MaterialTheme.colorScheme.primary
+            )
         }
         viewModel.state.error?.let { error ->
             Text(
-                text = error, color = Color.Red,
+                text = error, color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.align(Alignment.Center)
             )

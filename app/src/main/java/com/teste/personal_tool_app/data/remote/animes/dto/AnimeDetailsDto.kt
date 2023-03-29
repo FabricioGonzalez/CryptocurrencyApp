@@ -1,17 +1,19 @@
 package com.teste.personal_tool_app.data.remote.animes.dto
 
-data class AnimePageDetailsDto(
-    val currentPage: String,
-    val hasNextPage: Boolean,
-    val results: List<AnimeDetailsDto>
-)
-
 data class AnimeDetailsDto(
     val id: String,
     val title: String,
     val url: String,
+    val image: String,
+    val releaseDate: String? = "",
+    val description: String? = "",
+    val subOrDub: String,
+    val type: String? = "",
+    val status: String,
+    val otherName: String? = "",
     val genres: List<String>,
-    val totalEpisodes: Int
+    val totalEpisodes: Int,
+    val episodes: List<AnimeDetailsEpisodeDto>
 )
 
 /*

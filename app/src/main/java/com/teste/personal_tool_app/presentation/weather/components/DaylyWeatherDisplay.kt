@@ -1,11 +1,9 @@
 package com.teste.personal_tool_app.presentation.weather.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,32 +17,39 @@ import com.teste.personal_tool_app.domain.weather.domain.weather.WeatherDayData
 fun DaylyWeatherDisplay(
     weatherData: WeatherDayData,
     modifier: Modifier = Modifier,
-    textColor: Color = Color.White
+    textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
 
     Row(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(126.dp)
+            .padding(4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        Image(
-            painter = painterResource(id = weatherData.weatherType.iconRes),
-            contentDescription = null,
-            modifier = Modifier.width(40.dp)
-        )
-        Spacer(modifier = modifier.width(2.dp))
-        Text(text = weatherData.day, color = Color.LightGray)
-        Spacer(modifier = modifier.width(2.dp))
-        Text(
-            text = "min: ${weatherData.minimumTemperatureCelsius}°C",
-            color = textColor,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = modifier.width(2.dp))
-        Text(
-            text = "max: ${weatherData.maximumTemperatureCelsius}°C",
-            color = textColor,
-            fontWeight = FontWeight.Bold
-        )
+        Column {
+            Image(
+                painter = painterResource(id = weatherData.weatherType.iconRes),
+                contentDescription = null,
+                modifier = Modifier.width(40.dp)
+            )
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(text = weatherData.day, color = textColor)
+        }
+        Spacer(modifier = Modifier.width(2.dp))
+        Column {
+            Text(
+                text = "min: ${weatherData.minimumTemperatureCelsius}°C",
+                color = textColor,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(
+                text = "max: ${weatherData.maximumTemperatureCelsius}°C",
+                color = textColor,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }

@@ -10,11 +10,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BookOnline
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.teste.personal_tool_app.presentation.navigation.BottomNavItem
 import com.teste.personal_tool_app.presentation.navigation.components.BottomNavigationBar
 import com.teste.personal_tool_app.presentation.navigation.components.Navigation
@@ -42,81 +45,65 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CriptocurrencyAppTheme {
-/*
-                val scaffoldState = rememberScaffoldState()
-                val scope = rememberCoroutineScope()
-*/
-
                 val navController = rememberNavController()
+                val systemUiController = rememberSystemUiController()
+
+                systemUiController.setSystemBarsColor(
+                    color = MaterialTheme.colorScheme.primaryContainer
+                )
+
+                val currentNavState = navController.currentBackStackEntryAsState()
+                val navState = remember {
+                    currentNavState
+                }
+
+                val screens = listOf(
+                    BottomNavItem(
+                        name = "cripto",
+                        route = Screen.CoinListScreen.route,
+                        icon = Icons.Default.Abc
+                    ),
+                    BottomNavItem(
+                        name = "mangas",
+                        route = Screen.MangaListScreen.route,
+                        icon = Icons.Default.BookOnline
+                    ),
+                    BottomNavItem(
+                        name = "animes",
+                        route = Screen.AnimeListScreen.route,
+                        icon = Icons.Default.BookOnline
+                    ),
+                    BottomNavItem(
+                        name = "player",
+                        route = Screen.AnimePlayerScreen.route,
+                        icon = Icons.Default.PlayArrow,
+                        hidden = true,
+                        hideBottomBar = true
+                    ),
+                    BottomNavItem(
+                        name = "weather",
+                        route = Screen.WeatherScreen.route,
+                        icon = Icons.Default.Refresh
+                    )
+                )
+                val item = screens.firstOrNull {
+                    navState.value?.destination?.route?.split("/")?.first()
+                        ?.equals(it.route) == true
+                }
+
+                this.requestedOrientation =
+                    item?.Orientation?.type ?: ScreenOrientation.Portrait.type
                 Scaffold(
-                    /* scaffoldState = scaffoldState,
-                     topBar = {
-                         AppBar(onNavigationIconClick = {
-                             scope.launch {
-                                 scaffoldState.drawerState.open()
-                             }
-                         })
-                     },
-                     drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
-                     drawerContent = {
-                         DrawerHeader()
-                         DrawerBody(
-                             items = listOf(
-                                 MenuItem(
-                                     id = "home",
-                                     title = "Home",
-                                     contentDescription = "Go to Home Screen",
-                                     icon = Icons.Default.Home
-                                 ), MenuItem(
-                                     id = "settings",
-                                     title = "Settings",
-                                     contentDescription = "Go to Settings Screen",
-                                     icon = Icons.Default.Settings
-                                 ), MenuItem(
-                                     id = "help",
-                                     title = "Help",
-                                     contentDescription = "Get Help",
-                                     icon = Icons.Default.Info
-                                 )
-                             ), onItemClick = {
-                                 println("Clicked on ${it.title}")
-                             }
-                         )
-                     },*/
                     bottomBar = {
-                        BottomNavigationBar(
-                            items = listOf(
-                                /*  BottomNavItem(
-                                      name = "cripto",
-                                      route = Screen.CoinListScreen.route,
-                                      icon = Icons.Default.Info
-                                  ),*/
-                                BottomNavItem(
-                                    name = "mangas",
-                                    route = Screen.MangaListScreen.route,
-                                    icon = Icons.Default.BookOnline
-                                ),
-                                BottomNavItem(
-                                    name = "animes",
-                                    route = Screen.AnimeListScreen.route,
-                                    icon = Icons.Default.BookOnline
-                                ),
-                                /*  BottomNavItem(
-                                      name = "notifications",
-                                      route = Screen.NotificationScreen.route,
-                                      icon = Icons.Default.Notifications
-                                  ),*/
-                                BottomNavItem(
-                                    name = "weather",
-                                    route = Screen.WeatherScreen.route,
-                                    icon = Icons.Default.Refresh
-                                )
-                            ),
-                            navController = navController,
-                            onItemClick = {
-                                navController.navigate(it.route)
-                            }
-                        )
+                        if (item?.hideBottomBar != true)
+                            BottomNavigationBar(
+                                items = screens,
+                                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                                navController = navController,
+                                onItemClick = {
+                                    navController.navigate(it.route)
+                                }
+                            )
                     }) {
                     val padding = it.calculateBottomPadding()
                     Navigation(

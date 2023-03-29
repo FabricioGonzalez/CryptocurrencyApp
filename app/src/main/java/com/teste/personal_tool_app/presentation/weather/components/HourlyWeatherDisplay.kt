@@ -3,6 +3,7 @@ package com.teste.personal_tool_app.presentation.weather.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -18,7 +19,7 @@ import java.time.format.DateTimeFormatter
 fun HourlyWeatherDisplay(
     weatherData: WeatherData,
     modifier: Modifier = Modifier.height(80.dp),
-    textColor: Color = Color.White
+    textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
     val formattedTime = remember(weatherData) {
         weatherData.time
@@ -32,7 +33,7 @@ fun HourlyWeatherDisplay(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = formattedTime, color = Color.LightGray)
+        Text(text = formattedTime, color = textColor)
         Image(
             painter = painterResource(id = weatherData.weatherType.iconRes),
             contentDescription = null,

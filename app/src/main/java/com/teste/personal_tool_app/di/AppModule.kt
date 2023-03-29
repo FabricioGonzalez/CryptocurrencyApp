@@ -7,9 +7,12 @@ import com.google.android.gms.location.LocationServices
 import com.teste.personal_tool_app.ConnectivityObserver
 import com.teste.personal_tool_app.NetworkConnectivityObserver
 import com.teste.personal_tool_app.common.Constants
+import com.teste.personal_tool_app.data.remote.animes.AnimeApi
 import com.teste.personal_tool_app.data.remote.coin.CoinPaprikaApi
 import com.teste.personal_tool_app.data.remote.weather.WeatherApi
+import com.teste.personal_tool_app.data.repositories.animes.AnimeAPIRepositoryImpl
 import com.teste.personal_tool_app.data.repositories.coin.CoinRepositoryImpl
+import com.teste.personal_tool_app.domain.animes.repositories.AnimeAPIRepository
 import com.teste.personal_tool_app.domain.coin.repositories.CoinRepository
 import com.teste.personal_tool_app.presentation.nofication.services.NotificationService
 import dagger.Module
@@ -70,6 +73,23 @@ object AppModule {
             .client(client)
             .build()
             .create(WeatherApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnimeApi(client: OkHttpClient): AnimeApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.ANIMES_API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(AnimeApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnimeAPIRepository(api: AnimeApi): AnimeAPIRepository {
+        return AnimeAPIRepositoryImpl(api)
     }
 
     @Provides

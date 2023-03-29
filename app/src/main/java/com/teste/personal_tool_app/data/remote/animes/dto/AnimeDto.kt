@@ -14,6 +14,8 @@ data class AnimeDto(
     val releaseDate: String,
     val subOrDub: String
 )
+
+
 /*
 * {"id":"kishin-douji-zenki",
 * "title":"Kishin Douji Zenki",

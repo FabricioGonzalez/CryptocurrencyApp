@@ -7,7 +7,9 @@ data class AnimeStreamingDto(
 )
 
 data class HeadersDto(
-    val Referer: String
+    val Referer: String,
+    val watchsb: String? = "", // or null, since only provided with server being equal to "streamsb".
+    val userAgent: String? = "" // or null
 )
 
 data class SourcesDto(
