@@ -7,13 +7,14 @@ import com.teste.personal_tool_app.common.onLoading
 import com.teste.personal_tool_app.common.onSucess
 import com.teste.personal_tool_app.data.remote.animes.dto.AnimeEpisodeDto
 import com.teste.personal_tool_app.data.remote.animes.dto.AnimeSearchingDto
+import com.teste.personal_tool_app.data.remote.animes.dto.GenreAnimeDto
 import com.teste.personal_tool_app.data.remote.animes.dto.TopAiringAnimeDto
-import com.teste.personal_tool_app.domain.animes.enums.AnimeGenres
 import com.teste.personal_tool_app.domain.animes.models.toDTO
-import com.teste.personal_tool_app.domain.animes.usecases.get_animes.GetAnimesUsecase
-import com.teste.personal_tool_app.domain.animes.usecases.get_animes_by_genre.GetAnimesByGenreUsecase
-import com.teste.personal_tool_app.domain.animes.usecases.get_searching_animes.GetSearchingAnimesUsecase
-import com.teste.personal_tool_app.domain.animes.usecases.get_top_airing_animes.GetTopAiringAnimesUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetAnimesByGenreUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetAnimesUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetSearchingAnimesUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetTopAiringAnimesUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.genres.queries.GetAllPrefrerredGenresUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,6 +44,7 @@ class AnimeListViewModel @Inject constructor(
     private val getAnimesUsecase: GetAnimesUsecase,
     private val getTopAiringAnimesUsecase: GetTopAiringAnimesUsecase,
     private val getSearchingAnimesUsecase: GetSearchingAnimesUsecase,
+    private val getAllPrefrerredGenresUsecase: GetAllPrefrerredGenresUsecase,
     private val getAnimesByGenreUsecase: GetAnimesByGenreUsecase
 ) : ViewModel() {
     private val _animeList: MutableStateFlow<List<AnimeEpisodeDto>> = MutableStateFlow(
@@ -60,6 +62,12 @@ class AnimeListViewModel @Inject constructor(
     )
     val topAiringList = _topAiringList.asStateFlow()
 
+    private val _genreFilteredAnimes: MutableStateFlow<MutableMap<String, List<GenreAnimeDto>>> =
+        MutableStateFlow(
+            mutableMapOf()
+        )
+    val genreFilteredAnimes = _genreFilteredAnimes.asStateFlow()
+
     private val _searchText: MutableStateFlow<String> = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
 
@@ -74,6 +82,8 @@ class AnimeListViewModel @Inject constructor(
     init {
         loadAnimes()
         loadTopAiringAnimes()
+        loadAnimesByMostWatchedGenres()
+
         viewModelScope.launch {
 
             searchText.debounce(1000L).collect { searchValue ->
@@ -113,10 +123,8 @@ class AnimeListViewModel @Inject constructor(
                     } ?: emptyList())
                 }
                 animes.onError {
-
                 }
                 animes.onLoading {
-
                 }
             }
 
@@ -127,7 +135,43 @@ class AnimeListViewModel @Inject constructor(
     }
 
     private fun loadAnimesByMostWatchedGenres() {
-        getAnimesByGenreUsecase(AnimeGenres.Ecchi)
+        viewModelScope.launch {
+
+            getAllPrefrerredGenresUsecase().collect { result ->
+                result.onSucess { success ->
+
+                    success.data?.forEach { animeGenre ->
+                        viewModelScope.launch {
+                            getAnimesByGenreUsecase(animeGenre).collect { anime ->
+
+                                anime.onLoading { }
+                                anime.onSucess {
+                                    it.data?.map { map -> map.toDTO() }?.let { res ->
+                                        _genreFilteredAnimes.value.putIfAbsent(
+                                            animeGenre.name,
+                                            res
+                                        )
+                                    }
+                                }
+                                anime.onError { }
+
+
+                            }
+                        }
+
+
+                    }
+
+
+                }
+                result.onLoading { loading ->
+                }
+                result.onError { error ->
+                }
+            }
+        }
+
+
     }
 
     private fun loadTopAiringAnimes() {

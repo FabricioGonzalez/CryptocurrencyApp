@@ -22,7 +22,7 @@ fun WeatherWeekForecast(
     state: WeatherState,
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    textColor: Color = MaterialTheme.colorScheme.onPrimary
+    textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
     state.weatherInfo?.weatherDataPerDay.let { items ->
         val list: MutableList<WeatherDayData> = mutableListOf()
@@ -64,7 +64,7 @@ fun WeatherWeekForecast(
             Card(
                 modifier = modifier,
                 backgroundColor = backgroundColor,
-                shape = RoundedCornerShape(10.dp),
+                shape =MaterialTheme.shapes.medium,
             ) {
                 Column(
                     modifier = modifier
@@ -72,7 +72,7 @@ fun WeatherWeekForecast(
                     Text(
                         text = "Weekly Forecast",
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = textColor
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     list.map { weatherData ->
@@ -85,7 +85,7 @@ fun WeatherWeekForecast(
                                     color = MaterialTheme.colorScheme.primaryContainer,
                                     shape = MaterialTheme.shapes.medium
                                 ),
-                            textColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            textColor = textColor
                         )
                     }
                 }

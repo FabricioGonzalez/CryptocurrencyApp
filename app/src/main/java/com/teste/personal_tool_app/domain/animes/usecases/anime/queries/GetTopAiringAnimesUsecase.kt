@@ -1,4 +1,4 @@
-package com.teste.personal_tool_app.domain.animes.usecases.get_top_airing_animes
+package com.teste.personal_tool_app.domain.animes.usecases.anime.queries
 
 import com.teste.personal_tool_app.common.Resource
 import com.teste.personal_tool_app.domain.animes.models.TopAiringAnime

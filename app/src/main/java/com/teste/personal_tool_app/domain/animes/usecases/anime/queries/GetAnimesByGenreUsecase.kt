@@ -1,7 +1,7 @@
-package com.teste.personal_tool_app.domain.animes.usecases.get_animes_by_genre
+package com.teste.personal_tool_app.domain.animes.usecases.anime.queries
 
 import com.teste.personal_tool_app.common.Resource
-import com.teste.personal_tool_app.domain.animes.enums.AnimeGenres
+import com.teste.personal_tool_app.domain.animes.models.AnimeGenre
 import com.teste.personal_tool_app.domain.animes.models.GenreAnime
 import com.teste.personal_tool_app.domain.animes.models.toEntity
 import com.teste.personal_tool_app.domain.animes.repositories.AnimeAPIRepository
@@ -12,10 +12,10 @@ import javax.inject.Inject
 class GetAnimesByGenreUsecase @Inject constructor(
     private val apiRepository: AnimeAPIRepository
 ) {
-    operator fun invoke(genres: AnimeGenres, page: Int = 1): Flow<Resource<List<GenreAnime>>> =
+    operator fun invoke(genres: AnimeGenre, page: Int = 1): Flow<Resource<List<GenreAnime>>> =
         flow {
             val result = apiRepository
-                .getAnimesByGenre(genres, page)
+                .getAnimesByGenre(genres.name, page)
                 .data
                 ?.results
                 ?.map {

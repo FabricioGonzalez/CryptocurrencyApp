@@ -8,7 +8,7 @@ import com.teste.personal_tool_app.common.onError
 import com.teste.personal_tool_app.common.onLoading
 import com.teste.personal_tool_app.common.onSucess
 import com.teste.personal_tool_app.domain.animes.models.AnimeDetails
-import com.teste.personal_tool_app.domain.animes.usecases.get_animes.GetAnimeDetailsUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetAnimeDetailsUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnimeDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val getAnimeDetailsUsecase: GetAnimeDetailsUsecase
 ) : ViewModel() {
 

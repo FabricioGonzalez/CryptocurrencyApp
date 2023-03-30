@@ -9,4 +9,5 @@ object Constants {
     const val PARAM_ANIME_EPISODE_ID = "episodeId"
     const val PARAM_MANGA_ID = "mangaId"
     const val PARAM_MANGA_CHAPTER = "mangaChapter"
+    const val DATABASE_NAME = "AppDatabase.db"
 }

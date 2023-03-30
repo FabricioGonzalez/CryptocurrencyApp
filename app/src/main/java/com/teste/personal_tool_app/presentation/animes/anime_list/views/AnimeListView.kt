@@ -44,6 +44,7 @@ fun AnimeListView(navController: NavController) {
     val keepWatching by viewModel.keepWatchingList.collectAsState()
     val topAiring by viewModel.topAiringList.collectAsState()
     val searchingAnimes by viewModel.seachingList.collectAsState()
+    val animeByGenre by viewModel.genreFilteredAnimes.collectAsState()
     val searchText by viewModel.searchText.collectAsState()
     val isSearching by viewModel.isSearching.collectAsState()
 

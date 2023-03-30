@@ -1,7 +1,6 @@
 package com.teste.personal_tool_app.data.remote.animes
 
 import com.teste.personal_tool_app.data.remote.animes.dto.*
-import com.teste.personal_tool_app.domain.animes.enums.AnimeGenres
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -26,7 +25,7 @@ interface AnimeApi {
 
     @GET("gogoanime/genre/{genreName}")
     suspend fun getAnimesByGenre(
-        @Path("genreName") genre: AnimeGenres,
+        @Path("genreName") genre: String,
         @Query("page") page: Int = 1,
     ): GenreAnimePageDto
 

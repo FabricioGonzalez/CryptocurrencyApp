@@ -3,7 +3,6 @@ package com.teste.personal_tool_app.data.repositories.animes
 import com.teste.personal_tool_app.common.Resource
 import com.teste.personal_tool_app.data.remote.animes.AnimeApi
 import com.teste.personal_tool_app.data.remote.animes.dto.*
-import com.teste.personal_tool_app.domain.animes.enums.AnimeGenres
 import com.teste.personal_tool_app.domain.animes.repositories.AnimeAPIRepository
 import javax.inject.Inject
 
@@ -63,11 +62,11 @@ class AnimeAPIRepositoryImpl @Inject constructor(private val api: AnimeApi) : An
     }
 
     override suspend fun getAnimesByGenre(
-        genres: AnimeGenres,
+        genre: String,
         page: Int
     ): Resource<GenreAnimePageDto> {
         return try {
-            val result = api.getAnimesByGenre(genre = genres, page = page)
+            val result = api.getAnimesByGenre(genre = genre, page = page)
 
             Resource.Success(data = result)
         } catch (e: Exception) {

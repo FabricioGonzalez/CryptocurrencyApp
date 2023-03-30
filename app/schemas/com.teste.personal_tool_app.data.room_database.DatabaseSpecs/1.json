@@ -1,0 +1,220 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e462acbdf97a00f3ed4ab75ee99d3e3d",
+    "entities": [
+      {
+        "tableName": "Animes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animeId` TEXT NOT NULL, `title` TEXT NOT NULL, `url` TEXT NOT NULL, `image` TEXT NOT NULL, `releaseDate` TEXT NOT NULL, `subOrDub` TEXT NOT NULL, PRIMARY KEY(`animeId`))",
+        "fields": [
+          {
+            "fieldPath": "animeId",
+            "columnName": "animeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subOrDub",
+            "columnName": "subOrDub",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "animeId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "AnimeEpisodes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animeId` TEXT NOT NULL, `episodeNumber` INTEGER NOT NULL, PRIMARY KEY(`animeId`, `episodeNumber`), FOREIGN KEY(`animeId`) REFERENCES `Animes`(`animeId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "animeId",
+            "columnName": "animeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "episodeNumber",
+            "columnName": "episodeNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "animeId",
+            "episodeNumber"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Animes",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "animeId"
+            ],
+            "referencedColumns": [
+              "animeId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "WatchedAnimeEpisodes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animeId` TEXT NOT NULL, `episodeNumber` INTEGER NOT NULL, `watchedTime` INTEGER NOT NULL, `remainingTime` INTEGER NOT NULL, PRIMARY KEY(`animeId`, `episodeNumber`), FOREIGN KEY(`episodeNumber`, `animeId`) REFERENCES `AnimeEpisodes`(`episodeNumber`, `animeId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "animeId",
+            "columnName": "animeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "episodeNumber",
+            "columnName": "episodeNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "watchedTime",
+            "columnName": "watchedTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remainingTime",
+            "columnName": "remainingTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "animeId",
+            "episodeNumber"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AnimeEpisodes",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "episodeNumber",
+              "animeId"
+            ],
+            "referencedColumns": [
+              "episodeNumber",
+              "animeId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Genres",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`genreId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "genreId",
+            "columnName": "genreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "genreId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PreferredGenres",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`preferredGenreId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `genreId` INTEGER NOT NULL, FOREIGN KEY(`genreId`) REFERENCES `Genres`(`genreId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "preferredGenreId",
+            "columnName": "preferredGenreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "genreId",
+            "columnName": "genreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "preferredGenreId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Genres",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "genreId"
+            ],
+            "referencedColumns": [
+              "genreId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e462acbdf97a00f3ed4ab75ee99d3e3d')"
+    ]
+  }
+}

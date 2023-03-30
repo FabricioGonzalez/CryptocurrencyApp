@@ -12,7 +12,7 @@ import com.teste.personal_tool_app.common.Constants
 import com.teste.personal_tool_app.common.onError
 import com.teste.personal_tool_app.common.onLoading
 import com.teste.personal_tool_app.common.onSucess
-import com.teste.personal_tool_app.domain.animes.usecases.get_streaming_episodes.GetStreamingEpisodeUsecase
+import com.teste.personal_tool_app.domain.animes.usecases.anime.queries.GetStreamingEpisodeUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
